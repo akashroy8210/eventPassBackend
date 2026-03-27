@@ -9,7 +9,9 @@ dotenv.config()
 const app=express()
 
 app.use(express.json())
-app.use(cors())
+app.use(cors({
+    origin:"*"
+}))
 
 app.get('/',(req,res)=>{
     res.send("server is running")
@@ -19,6 +21,6 @@ app.use('/users',authRoutes)
 app.use('/qr',qrRoutes)
 connectDB();
 const PORT=process.env.PORT || 8080;
-app.listen(PORT,()=>{
+app.listen(PORT,"0.0.0.0",()=>{
     console.log(`server is running on port http://localhost:${PORT}`)
 })
