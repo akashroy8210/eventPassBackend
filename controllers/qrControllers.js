@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken")
 const QRCode = require('qrcode');
 const { v4: uuidv4 } = require("uuid");
 const Ticket = require("../models/ticketModel")
-
+const Scanlog=require("../models/Scanlog")
 
 exports.generateQR = async (req, res) => {
     try {
@@ -33,6 +33,13 @@ exports.verifyQR = async (req, res) => {
         if (!ticket) {
             return res.status(400).json({ message: "Ticket not found or already used" })
         }
+        await Scablog.create({
+        ticket:ticket._id,
+            scannedBy:req.user._id,
+            status:"SUCCESS"
+        })
+        
+        
         res.status(200).json({ success: true, message: "Entry allowed" })
     } catch (error) {
         res.status(500).json({ message: "invalid or expired QR", error })
