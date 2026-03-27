@@ -33,11 +33,12 @@ exports.verifyQR = async (req, res) => {
         if (!ticket) {
             return res.status(400).json({ message: "Ticket not found or already used" })
         }
-        await Scablog.create({
-        ticket:ticket._id,
-            scannedBy:req.user._id,
-            status:"SUCCESS"
-        })
+        await Scanlog.create({
+    ticketId: ticket._id,
+    userId: ticket.userId,
+    scannedBy: req.user.id,
+    status: "SUCCESS"
+})
         
         
         res.status(200).json({ success: true, message: "Entry allowed" })
