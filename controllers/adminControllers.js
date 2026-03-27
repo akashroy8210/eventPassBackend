@@ -7,7 +7,7 @@ const validator = require("validator")
 
 exports.getScanLogs=async(req,res)=>{
     try{
-        const logs=await ScanLog.find({}).populate("scannedBy","name").populate("userId","name", "email").populate("ticketId"," email").sort("-createdAt")
+        const logs=await ScanLog.find({}).populate("scannedBy","name").populate("userId","name email").populate("ticketId").sort("-createdAt")
         res.status(200).json({success:true,logs})
     }catch(error){
         res.status(500).json({message:"Internal Server Error",error})
