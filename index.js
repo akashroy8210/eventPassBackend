@@ -16,9 +16,9 @@ app.use(cors({
 app.get('/',(req,res)=>{
     res.send("server is running")
 })
-app.use('/admin',adminRoutes)
-app.use('/users',authRoutes)
-app.use('/qr',qrRoutes)
+app.use('/api/admin',adminRoutes)
+app.use('/api/users',authRoutes)
+app.use('/api/qr',qrRoutes)
 connectDB();
 const PORT=process.env.PORT || 8080;
 app.listen(PORT,"0.0.0.0",()=>{
